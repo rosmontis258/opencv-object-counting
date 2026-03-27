@@ -3,5 +3,5 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="ObjectCounting.vcxproj" />
+  <Project Path="ObjectCounting.vcxproj" Id="768fa1fd-bb07-490e-a651-20748821b779" />
 </Solution>
