@@ -134,9 +134,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="preProcess.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Function.h" />
+    <ClInclude Include="Process.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

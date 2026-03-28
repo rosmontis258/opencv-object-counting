@@ -18,9 +18,12 @@
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="preProcess.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Function.h">
+    <ClInclude Include="Process.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
