@@ -43,7 +43,7 @@ void update(int, void*)
 int main()
 {
 	img = imread("D:/Projects/opencv-object-counting/assets/input/pill1.jpg");
-	resize(img, imgSize, Size(), 0.5, 0.5);
+	resize(img, imgSize, Size(), 0.1, 0.1);
 	cvtColor(imgSize, imgHsv, COLOR_BGR2HSV);
 
 	namedWindow("mask");
