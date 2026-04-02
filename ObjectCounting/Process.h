@@ -6,5 +6,5 @@
 using namespace cv;
 using namespace std;
 
-//颜色对比识别
-Mat colorProcess(const Mat& img);
+//选定基底方法
+Mat judgeBasicType(const Mat& img);

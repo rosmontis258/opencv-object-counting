@@ -8,7 +8,7 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-	string imagePath = "D:/Projects/opencv-object-counting/assets/input/pill1.jpg";
+	string imagePath = "D:/Projects/opencv-object-counting/assets/input/pill4.jpg";
 	if (argc >= 2)imagePath = argv[1];
 	Mat img = imread(imagePath);
 	if (img.empty())
@@ -42,7 +42,7 @@ void update(int, void*)
 }
 int main()
 {
-	img = imread("D:/Projects/opencv-object-counting/assets/input/pill1.jpg");
+	img = imread("D:/Projects/opencv-object-counting/assets/input/pill2.jpg");
 	resize(img, imgSize, Size(), 0.1, 0.1);
 	cvtColor(imgSize, imgHsv, COLOR_BGR2HSV);
 
