@@ -20,21 +20,43 @@ Mat judgeBasicType(const Mat& img)
 		return imgS;
 	}
 	else {
-		Mat imgGray = cvtColor(img, imgGray, COLOR_BGR2GRAY);
+		Mat imgGray;
+		cvtColor(img, imgGray, COLOR_BGR2GRAY);
 		return imgGray;
 	}
 }
 
-Mat judgeCrave(const Mat& img)
+Mat basicImg2Binary(const Mat& img)
 {
 	Mat imgBinary;
 	threshold(img, imgBinary, 0, 255, THRESH_BINARY | THRESH_OTSU);
+	return imgBinary;
+}
 
+bool judgeCrave(const Mat& imgBinary)
+{
 	vector<vector<Point>> contours;
 	vector<Vec4i> hierarchy;
-	findContours(imgBinary, contours, hierarchy, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE);
-	double area = 0, avgArea = 0;
+	findContours(img, contours, hierarchy, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE);
+
+	double totalArea = 0, avgArea = 0, maxArea = 0;
 	for (int i = 0; i < contours.size(); ++i)
-		area += contourArea(contours[i]);
-	avgArea = area / contours.size();
+	{
+		double area = contourArea(contours[i]);
+		totalArea += area;
+		maxArea = max(maxArea, area);
+	}	
+	avgArea = totalArea / contours.size();
+	if (maxArea > 2 * avgArea)
+		return true;
+	else
+		return false;
+}
+
+Mat craveType(const Mat& img)
+{
+	Mat imgBlur, imgBinary;
+	Scalar kernel_size(3, 3);
+	GaussianBlur(img, imgBlur, kernel_size, sigmaX = 0.5, sigmaY = 0.5);
+	threshold(imgBlur, imgBinary, 0, 255, THRESH_BINARY | THRESH_OTSU);
 }
