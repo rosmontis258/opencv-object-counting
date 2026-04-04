@@ -8,7 +8,7 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-	string imagePath = "D:/Projects/opencv-object-counting/assets/input/pill4.jpg";
+	string imagePath = "D:/Projects/opencv-object-counting/assets/input/pill2.jpg";
 	if (argc >= 2)imagePath = argv[1];
 	Mat img = imread(imagePath);
 	if (img.empty())
@@ -16,9 +16,10 @@ int main(int argc, char* argv[])
 		cout << "Fail to load image" << endl;
 		return -1;
 	}
-	Mat imgHsv = colorProcess(img);
+	Mat mask = craveProcess(img);
+	Mat imgContours = contoursProcess(mask, img);
 	Mat imgSize;
-	resize(imgHsv, imgSize, Size(), 0.1, 0.1);
+	resize(imgContours, imgSize, Size(), 0.1, 0.1);
 	imshow("test01", imgSize);
 	waitKey(0);
 	return 0;

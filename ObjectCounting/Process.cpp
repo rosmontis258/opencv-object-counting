@@ -128,3 +128,67 @@ Mat craveType(const Mat& originalImg, const Mat& imgBinary)
 	result.setTo(255, markers > 1);
 	return result;
 }
+
+Mat craveProcess(const Mat& img)
+{
+	Mat imgBasic = judgeBasicType(img);
+	Mat imgBinary = basicImg2Binary(imgBasic);
+	if (judgeCrave(imgBinary))
+		return craveType(img, imgBinary);
+	else return imgBinary;
+}
+
+vector<vector<Point>> extractContours(const Mat& binaryImg)
+{
+	vector<vector<Point>> contours;
+	vector<Vec4i> hierarchy;
+	findContours(binaryImg, contours, hierarchy, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE);
+	return contours;
+}
+
+vector<vector<Point>> filterContours(const vector<vector<Point>>& contours, double minArea)
+{
+	vector<vector<Point>> filtered;
+
+	for (const auto& contour : contours)
+	{
+		double area = contourArea(contour);
+		if (area >= minArea)
+		{
+			filtered.push_back(contour);
+		}
+	}
+
+	return filtered;
+}
+
+Mat drawBoundingBoxes(const Mat& src, const vector<vector<Point>>& contours)
+{
+	Mat result = src.clone();
+
+	for (const auto& contour : contours)
+	{
+		Rect box = boundingRect(contour);
+		rectangle(result, box, Scalar(0, 255, 0), 10);
+	}
+
+	return result;
+}
+
+Mat contoursProcess(const Mat& mask, const Mat& img)
+{
+	// 修改：面积阈值应该基于图像尺寸来算，不能直接从 Mat 对象错误取值。
+	int rows = img.rows;
+	int cols = img.cols;
+	vector<vector<Point>> contours = extractContours(mask);
+
+	// 修改：这里先按图像面积的比例过滤小噪声轮廓。
+	double minArea = rows * cols * 0.0005;
+	vector<vector<Point>> filtered = filterContours(contours, minArea);
+
+	// 修改：输出过滤后的数量，方便你调试 minArea 是否合适。
+	cout << "filtered contours = " << filtered.size() << endl;
+
+	// 修改：画框时必须使用过滤后的轮廓，而不是原始轮廓。
+	return drawBoundingBoxes(img, filtered);
+}

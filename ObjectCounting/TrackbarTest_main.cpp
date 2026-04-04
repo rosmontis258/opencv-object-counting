@@ -16,23 +16,19 @@ int main()
 		return -1;
 	}
 
-	// 第一步：先选出更适合做基础分割的图像形式。
-	Mat baseImg = judgeBasicType(img);
+	// 修改：这里直接走你已经封装好的整体分割流程。
+	Mat mask = craveProcess(img);
 
-	// 第二步：得到统一极性的初始二值图。
-	Mat imgBinary = basicImg2Binary(baseImg);
+	// 修改：在分割结果的基础上继续做轮廓过滤和画框。
+	Mat result = contoursProcess(mask, img);
 
-	// 第三步：只有疑似粘连时才进入分水岭。
-	bool needCrave = judgeCrave(imgBinary);
-	Mat result = imgBinary;
-	if (needCrave)
-	{
-		result = craveType(img, imgBinary);
-	}
+	Mat maskResize;
+	resize(mask, maskResize, Size(), 0.1, 0.1);
+	imshow("mask", maskResize);
 
-	Mat imgResize;
-	resize(result, imgResize, Size(), 0.1, 0.1);
-	imshow("testH", imgResize);
+	Mat resultResize;
+	resize(result, resultResize, Size(), 0.1, 0.1);
+	imshow("result", resultResize);
 	waitKey(0);
 	return 0;
 }

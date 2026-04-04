@@ -20,3 +20,19 @@ bool judgeCrave(const Mat& imgBinary);
 // 对需要拆分的目标执行分水岭。
 // originalImg 必须是三通道原图，imgBinary 是已经二值化后的 mask。
 Mat craveType(const Mat& originalImg, const Mat& imgBinary);
+
+// 对图像进行整体分割处理
+Mat craveProcess(const Mat& img);
+
+// 得到轮廓
+vector<vector<Point>> extractContours(const Mat& binaryImg);
+
+// 计算轮廓
+vector<vector<Point>> filterContours(const vector<vector<Point>>& contours, double minArea);
+
+// 框选轮廓
+Mat drawBoundingBoxes(const Mat& src, const vector<vector<Point>>& contours);
+
+// 对图像进行整体轮廓处理：
+// 从 mask 提取轮廓、按面积过滤、在原图上画框。
+Mat contoursProcess(const Mat& mask, const Mat& img);
