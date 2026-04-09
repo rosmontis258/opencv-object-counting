@@ -24,10 +24,10 @@
 ## Demo
 
 ### Input
-![input demo](assets/input/pill1.png)
+![input demo](assets/input/pill1.jpg)
 
 ### Output
-![HSV counting demo](assets/demo/pill1counting.png)
+![HSV counting demo](assets/output/pill1counting.png)
 
 ## Features
 
